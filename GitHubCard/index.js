@@ -25,11 +25,11 @@
 */
 
 const followersArray = [
-  // 'rushman7',
-  // 'tetondan',
-  // 'dustinmyers',
-  // 'justsml',
-  // 'luishrd',
+  'rushman7',
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
   'bigknell'
 ];
 
@@ -59,7 +59,8 @@ for (let i = 0; i < followersArray.length;i++) {
   .then(res => {
     console.log(res);
     cards.appendChild(gitCard(res.data))
-    new GitHubCalendar(".calendar", res.data.login, {responsive: true});
+    let calendar = document.querySelectorAll('.calendar');
+    new GitHubCalendar(calendar[i], res.data.login, {responsive: true});
     // Object.keys(res.data).map(item => cards.appendChild(gitCard(item)))
   })
   .catch(err => {
