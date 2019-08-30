@@ -24,7 +24,13 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  'tetondan',
+  'dustinmyers',
+  'justsml',
+  'luishrd',
+  'bigknell'
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -45,6 +51,66 @@ const followersArray = [];
 </div>
 
 */
+
+const data = axios.get('https://api.github.com/users/rushman7')
+  .then(res => {
+    console.log(res)
+  })
+  .catch(err => {
+    console.log(err)
+  })
+
+const cards = document.querySelector('.cards');
+
+function gitCard(data) {
+  let cardDiv = document.createElement('div');
+  cardDiv.classList.add('card');
+
+  let newImg = document.createElement('img');
+  newImg.setAttribute('src', data.avatar_url)
+  cardDiv.appendChild(newImg);
+
+  let cardInfoDiv = document.createElement('div');
+  cardInfoDiv.classList.add('card-info');
+  cardDiv.appendChild(cardInfoDiv);
+
+  let name = document.createElement('h3');
+  name.classList.add('name');
+  cardInfoDiv.appendChild(name);
+
+  let username = document.createElement('p');
+  username.classList.add('username');
+  cardInfoDiv.appendChild(username)
+
+  let location = document.createElement('p');
+  location.textContent = `Location: data.location`
+  cardInfoDiv.appendChild(location)
+
+  let profile = document.createElement('p');
+  let htmlUrl = document.createElement('a');
+  htmlUrl.setAttribute('href', 'data.html_url')
+  profile.textContent = `Profile: `
+  htmlUrl.textContent = 'data.html_url'
+  cardInfoDiv.appendChild(profile)
+  profile.appendChild(htmlUrl);
+
+  let followers = document.createElement('p');
+  followers.textContent = `Followers: ${followersArray.length}`
+  cardInfoDiv.appendChild(followers)
+
+  let following = document.createElement('p');
+  following.textContent = `Following: data.following`
+  cardInfoDiv.appendChild(following)
+
+  let bio = document.createElement('p');
+  bio.textContent = `Bio: data.bio`
+  cardInfoDiv.appendChild(bio)
+
+  console.log(cardDiv)
+  return cardDiv;
+}
+
+cards.appendChild(gitCard(data));
 
 /* List of LS Instructors Github username's: 
   tetondan
