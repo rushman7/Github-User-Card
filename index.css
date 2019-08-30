@@ -99,6 +99,7 @@ body {
   box-shadow: 0 1px 6px -2px #000;
   background-color: #FFF;
   margin-bottom: 30px;
+  flex-wrap: wrap;
 }
 
 .card img {
@@ -106,6 +107,7 @@ body {
   height: 150px;
   border-radius: 3px;
   margin-right: 20px;
+  margin-bottom: 10px;
 }
 
 .card .name {
@@ -122,6 +124,4 @@ body {
   font-style: italic;
   margin: 3px 0 10px;
 }
-
-
 

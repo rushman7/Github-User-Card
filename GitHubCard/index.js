@@ -25,11 +25,11 @@
 */
 
 const followersArray = [
-  'rushman7',
-  'tetondan',
-  'dustinmyers',
-  'justsml',
-  'luishrd',
+  // 'rushman7',
+  // 'tetondan',
+  // 'dustinmyers',
+  // 'justsml',
+  // 'luishrd',
   'bigknell'
 ];
 
@@ -57,8 +57,9 @@ const cards = document.querySelector('.cards');
 for (let i = 0; i < followersArray.length;i++) {
   axios.get(`https://api.github.com/users/${followersArray[i]}`)
   .then(res => {
-    console.log(res)
+    console.log(res);
     cards.appendChild(gitCard(res.data))
+    new GitHubCalendar(".calendar", res.data.login, {responsive: true});
     // Object.keys(res.data).map(item => cards.appendChild(gitCard(item)))
   })
   .catch(err => {
@@ -99,7 +100,7 @@ function gitCard(data) {
   profile.appendChild(htmlUrl);
 
   let followers = document.createElement('p');
-  followers.textContent = `Followers: ${followersArray.length}`
+  followers.textContent = `Followers: ${data.followers}`
   cardInfoDiv.appendChild(followers)
 
   let following = document.createElement('p');
@@ -110,6 +111,10 @@ function gitCard(data) {
   bio.textContent = `Bio: ${data.bio}`
   cardInfoDiv.appendChild(bio)
 
-  console.log(cardDiv)
+  let calendar = document.createElement('div');
+  calendar.classList.add('calendar');
+  calendar.textContent = 'Loading the data just for you.'
+  cardDiv.appendChild(calendar);
+
   return cardDiv;
 }
