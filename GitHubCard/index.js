@@ -25,6 +25,7 @@
 */
 
 const followersArray = [
+  'rushman7',
   'tetondan',
   'dustinmyers',
   'justsml',
@@ -51,16 +52,19 @@ const followersArray = [
 </div>
 
 */
+const cards = document.querySelector('.cards');
 
-const data = axios.get('https://api.github.com/users/rushman7')
+for (let i = 0; i < followersArray.length;i++) {
+  axios.get(`https://api.github.com/users/${followersArray[i]}`)
   .then(res => {
     console.log(res)
+    cards.appendChild(gitCard(res.data))
+    // Object.keys(res.data).map(item => cards.appendChild(gitCard(item)))
   })
   .catch(err => {
-    console.log(err)
+    console.log("error: ", err)
   })
-
-const cards = document.querySelector('.cards');
+}
 
 function gitCard(data) {
   let cardDiv = document.createElement('div');
@@ -83,14 +87,14 @@ function gitCard(data) {
   cardInfoDiv.appendChild(username)
 
   let location = document.createElement('p');
-  location.textContent = `Location: data.location`
+  location.textContent = `Location: ${data.location}`
   cardInfoDiv.appendChild(location)
 
   let profile = document.createElement('p');
   let htmlUrl = document.createElement('a');
-  htmlUrl.setAttribute('href', 'data.html_url')
+  htmlUrl.setAttribute('href', data.html_url)
   profile.textContent = `Profile: `
-  htmlUrl.textContent = 'data.html_url'
+  htmlUrl.textContent = `${data.html_url}`
   cardInfoDiv.appendChild(profile)
   profile.appendChild(htmlUrl);
 
@@ -99,23 +103,13 @@ function gitCard(data) {
   cardInfoDiv.appendChild(followers)
 
   let following = document.createElement('p');
-  following.textContent = `Following: data.following`
+  following.textContent = `Following: ${data.following}`
   cardInfoDiv.appendChild(following)
 
   let bio = document.createElement('p');
-  bio.textContent = `Bio: data.bio`
+  bio.textContent = `Bio: ${data.bio}`
   cardInfoDiv.appendChild(bio)
 
   console.log(cardDiv)
   return cardDiv;
 }
-
-cards.appendChild(gitCard(data));
-
-/* List of LS Instructors Github username's: 
-  tetondan
-  dustinmyers
-  justsml
-  luishrd
-  bigknell
-*/
